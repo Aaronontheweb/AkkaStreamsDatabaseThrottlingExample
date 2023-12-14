@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Akka.Hosting" Version="1.5.13" />
     <PackageReference Include="Akka.Streams" Version="1.5.14" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
 </Project>

@@ -8,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // register IProductService
 builder.Services.AddScoped<ConcreteDatabaseImplementation>();
 builder.Services.AddSingleton<IProductService, ThrottledImplementation>();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddAkka("MyActorSystem", (akkaBuilder, provider) =>
 {
@@ -31,6 +34,14 @@ builder.Services.AddAkka("MyActorSystem", (akkaBuilder, provider) =>
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName.Equals("Azure"))
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.MapControllers();
 app.MapGet("/", () => "Hello from Akka.NET!");
 
 app.Run();
